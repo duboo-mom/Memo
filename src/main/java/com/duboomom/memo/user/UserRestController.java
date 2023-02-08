@@ -24,6 +24,9 @@ public class UserRestController {
 			, @RequestParam("name") String name
 			, @RequestParam("email") String email) {
 		
+		// 여기서 암호화X
+		// controller는 request,response만 !!!
+		
 		int count = userBO.addUser(loginId, password, name, email);
 		
 		Map<String, String> result = new HashMap<>();
