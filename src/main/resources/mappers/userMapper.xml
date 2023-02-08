@@ -12,7 +12,7 @@
 			`loginId`
 			, `password`
 			, `name`
-			, `email
+			, `email`
 			, `createdAt`
 			, `updatedAt`	
 		)

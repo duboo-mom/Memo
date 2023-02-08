@@ -22,7 +22,7 @@ public class UserRestController {
 			@RequestParam("loginId") String loginId
 			, @RequestParam("password") String password
 			, @RequestParam("name") String name
-			, @RequestParam("eamil") String email) {
+			, @RequestParam("email") String email) {
 		
 		int count = userBO.addUser(loginId, password, name, email);
 		
