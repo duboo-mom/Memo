@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.duboomom.memo.common.EncryptUtils;
 import com.duboomom.memo.user.dao.UserDAO;
+import com.duboomom.memo.user.model.User;
 
 @Service
 public class UserBO {
@@ -24,6 +25,14 @@ public class UserBO {
 		String encryptPassword = EncryptUtils.md5(password);
 		
 		return userDAO.insertUser(loginId, encryptPassword, name, email);
+	}
+	
+	public User getUser(String loginId, String password) {
+		
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		return userDAO.selectUser(loginId, encryptPassword);
+		
 	}
 	
 }
