@@ -56,17 +56,19 @@ public class UserRestController {
 		
 		User user = userBO.getUser(loginId, password);
 		
-		// 세션 객체 얻어 오기
-		HttpSession session = request.getSession();
-		// 세션에 특정한 값이 저장되어 있으면 로그인 된 상태
-		// 세션에 특정한 값이 저장되어 있지 않으면 로그인이 되어있지 않은 상태
-		session.setAttribute("userId", user.getId());
-		session.setAttribute("userName", user.getName());
-		
 		Map<String, String> result = new HashMap<>();
 		
 		if(user != null) {
 			result.put("result", "success");
+			
+			// 세션 객체 얻어 오기
+			HttpSession session = request.getSession();
+			// 세션에 특정한 값이 저장되어 있으면 로그인 된 상태
+			// 세션에 특정한 값이 저장되어 있지 않으면 로그인이 되어있지 않은 상태
+			// 세션에 key:value 형태로 값을 저장할 수 있음
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userName", user.getName());
+			
 		} else {
 			result.put("result", "fail");
 		}
