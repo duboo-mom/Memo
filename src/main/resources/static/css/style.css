@@ -14,7 +14,12 @@ header {
 	width:350px;
 }
 
+.input-box {
+	width:600px;
+}
+
 footer {
 	height:50px;
 	background-color:#dddddd;
 }
+
