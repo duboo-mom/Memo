@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.duboomom.memo.post.bo.PostBO;
 
@@ -25,6 +26,7 @@ public class PostRestController {
 	public Map<String, String> postCreate(
 			@RequestParam("title") String title
 			, @RequestParam("content") String content
+			, @RequestParam("file") MultipartFile file
 			, HttpServletRequest request) {
 		
 		// 로그인된 사용자의 user 테이블 id 컬럼 값
@@ -33,7 +35,7 @@ public class PostRestController {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		Map<String, String> result = new HashMap<>();
-		int count = postBO.addPost(userId, title, content);
+		int count = postBO.addPost(userId, title, content, file);
 		
 		if(count == 1) {
 			result.put("result", "success");

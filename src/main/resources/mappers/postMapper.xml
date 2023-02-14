@@ -12,6 +12,7 @@
 			`userId`
 			, `title`
 			, `content`
+			, `imagePath`
 			, `createdAt`
 			, `updatedAt`
 		)
@@ -20,10 +21,46 @@
 			#{userId}
 			, #{title}
 			, #{content}
+			, #{imagePath}
 			, now()
 			, now()
 		)
 			
 	</insert>
 
+	<select id="selectPostList" resultType="com.duboomom.memo.post.model.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `title`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY
+			`id` DESC;
+	</select>
+	
+	<select id="selectPost" parameterType="int"
+	resultType="com.duboomom.memo.post.model.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `title`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{postId} 		
+	
+	</select>
+	
+	
 </mapper>

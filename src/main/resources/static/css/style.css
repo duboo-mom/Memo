@@ -18,6 +18,10 @@ header {
 	width:600px;
 }
 
+.list-box {
+	width:900px;
+}
+
 footer {
 	height:50px;
 	background-color:#dddddd;
