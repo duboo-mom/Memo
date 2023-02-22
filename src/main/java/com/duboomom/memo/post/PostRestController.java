@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,5 +46,45 @@ public class PostRestController {
 		
 		return result;
 	}
+	
+	@PostMapping("/update")
+	public Map<String, String> modifyMemo(
+			@RequestParam("postId") int postId
+			, @RequestParam("title") String title
+			, @RequestParam("content") String content) {
+		
+		int count = postBO.updatedPost(postId, title, content);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+		
+	}
+	
+	@GetMapping("/delete")
+	public Map<String, String> deleteMemo(@RequestParam("postId") int postId) {
+		
+		int count = postBO.deletePost(postId);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+		
+	}
+	
+	
+	
 	
 }

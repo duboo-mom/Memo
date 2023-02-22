@@ -32,14 +32,14 @@
 					<textarea rows="10" class="form-control" id="contentInput">${post.content }</textarea>
 				</div>
 				
-				<img src="${post.imagePath }">
+				<img width="100%" class="mt-3" src="${post.imagePath }">
 				
 				<div class="d-flex justify-content-between mt-4">
 					<div>
 						<a href="/post/list/view" class="btn btn-warning"> 목록으로 </a>
-						<button type="button" class="btn btn-danger ml-2">삭제</button>					
+						<button type="button" class="btn btn-danger ml-2" id="deleteBtn" data-post-id="${post.id }">삭제</button>					
 					</div>
-					<button type="button" class="btn btn-primary" id="saveBtn">저장</button>
+					<button type="button" class="btn btn-primary" id="modifyBtn" data-post-id="${post.id }">수정</button>
 				</div>
 			</div>
 		</section>
@@ -49,8 +49,65 @@
 	
 	<script>
 		$(document).ready(function() {
-
 			
+			$("#deleteBtn").on("click", function() {
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/delete"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href="/post/list/view";
+						} else {
+							alert("삭제 실패");
+						}
+					}
+					, error:function() {
+						alert("삭제 에러");
+					}
+				});
+				
+			});
+			
+
+			$("#modifyBtn").on("click", function() {
+				
+				let title = $("#titleInput").val();
+				let content = $("#contentInput").val();
+				
+				let postId = $(this).data("post-id");
+				
+				if(title == "") {
+					alert("제목을 입력하세요");
+					return;
+				}
+				
+				if(content == "") {
+					alert("내용을 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/update"
+					, data:{"postId":postId, "title":title, "content":content}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("수정 실패");
+						}
+						
+					}
+					, error:function() {
+						alert("수정 에러");
+					}
+				});
+				
+			});
 			
 		});
 	
